@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import "./styles/App.scss";
+import { CssBaseline } from "@material-ui/core";
+import { Notification } from "./components/index";
+import { QuestionProvider } from "./contexts/questionsContext.js";
+import { AppRoutes } from "./routes/routes.js";
+import { withRouter } from "react-router-dom";
 
-function App() {
+const App = props => {
+  useEffect(() => {
+    document.title = process.env.REACT_APP_NAME;
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QuestionProvider>
+      <CssBaseline>
+        <AppRoutes {...props} />
+      </CssBaseline>
+      <Notification />
+    </QuestionProvider>
   );
-}
+};
 
-export default App;
+export default withRouter(App);
